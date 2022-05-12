@@ -11,9 +11,36 @@ function renderBook(book){
     listItem.innerText=titleText
     unorderedList.appendChild(listItem)
 
-    listItem.addEventListener('click', (e)=>displayBookInfo(e))
+    listItem.addEventListener('click', (e)=>displayBookInfo(e,book))
 }
 
-function displayBookInfo(e){
-    console.log(e)
+function displayBookInfo(e, book){
+   
+    let displayDiv = document.getElementById('show-panel')
+    let thumbnail = book.img_url
+    let description=book.description
+    let usersArray =book.users
+
+   let bookPicture = document.createElement('img')
+   let descriptionEl=document.createElement('h4')
+   let listOfUsers = document.createElement('ul')
+   
+   buildUserList(usersArray)
+   
+    function buildUserList(usersArray){
+        usersArray.forEach(user=>{
+            let singleUserEl =document.createElement('li')
+            singleUserEl.innerText = user.username
+            listOfUsers.append(singleUserEl)
+        })
+    }       
+       
+   bookPicture.src = thumbnail
+   descriptionEl.innerText = description
+   
+   displayDiv.append(bookPicture,descriptionEl, listOfUsers)
+
+
 }
+
+// thumbnail, description, and a list of users 
